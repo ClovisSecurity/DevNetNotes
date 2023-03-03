@@ -1,0 +1,34 @@
+VIM CHEATSHEET
+
+$ - go to end of line
+0 - jump to beginning of line
+i / a - Start insert mode at/after cursor
+I / A - Start insert mode at the beginning/end of the line
+o / O - Add blank line below/above current line
+dd - delete line
+d - delete highlighted
+Ctrl + D = move down half a page
+gg - Go to top of page
+G - Go to the bottom of page
+u - undo 
+Ctrl + R - redo
+^ - Jump to first non-blank character on a line
+yy - Yank (copy) a line
+p - Paste after cursor
+P - Paste before cursor
+
+MORE ADVANCED:
+/pattern - Search for pattern
+?pattern - Search backward for pattern
+n - Repeat search in same direction
+N - Repeat search in opposite direction
+:%s/old/new/g - Replace all old with new throughout file (gn is better though)
+:%s/old/new/gc - Replace all old with new throughout file with confirmations
+
+NEW STUFF: 
+d - Deletes from the cursor to the movement location
+c - Deletes from the cursor to the movement location, then starts insert mode
+y - Copy from the cursor to the movement location
+> - Indent one level
+< - Unindent one level
+

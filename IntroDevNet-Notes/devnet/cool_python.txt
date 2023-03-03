@@ -1,0 +1,82 @@
+# print and separate each item by |
+print("server", "device", "network", sep="|")
+
+prefix = 24
+print("network mask prefix: ", prefix, sep="/")
+
+Output:
+network mask prefix: /24
+url = "https://ios-xe-mgmt.cisco.com:9443/restconf/data/ietf-interfaces:interfaces"
+headers = {'Content-Type': 'application/yang-data+json',
+           'Accept': 'application/yang-data+json'}
+ 
+response = requests.get(url, auth=(USER, PASS), headers=headers, verify=False)
+
+import json
+with open('iosxe_data.json') as json_file:
+    data = json.load(json_file)
+    for interface in data['ietf-interfaces:interfaces']['interface']:
+        print(interface)
+
+from time import sleep
+while True:
+    try:
+        print("Polling.")
+        # Poll some resource
+        sleep(1)
+    except KeyboardInterrupt:
+        break
+
+Note: You can use 'Ctrl-C' to break out of infinite loops or hung scripts.
+
+for switch in my_network:
+    for interface in switch:
+        if interface.is_down() and interface.last_change() > thirty_days:
+            interface.shutdown()
+            interface.set_description("Interface disabled per Policy")
+
+>> import requests
+>>>
+>>> HOST = 'ios-xe-mgmt.cisco.com'
+>>> USER = 'developer'
+>>> PASS = 'C1sco12345'
+>>>
+>>>
+>>> url = "https://ios-xe-mgmt.cisco.com:9443/restconf/data/ietf-interfaces:interfaces"
+>>> headers = {'Content-Type': 'application/yang-data+json',
+...               'Accept': 'application/yang-data+json'}
+>>>
+>>> response = requests.get(url, auth=(USER, PASS), headers=headers, verify=False)
+>>>
+>>>
+>>> interfaces = response.json()
+>>> interfaces['ietf-interfaces:interfaces']['interface'][0]['name']
+'GigabitEthernet1'
+>>> interfaces['ietf-interfaces:interfaces']['interface'][0]['ietf-ip:ipv4']['address'][0]['ip']
+'10.10.20.48'
+>>>
+
+Protocol pro tip: When you want to see the protocol response headers using curl, the --include or -i option provides that information.
+curl https://deckofcardsapi.com/api/deck/new/ | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    80  100    80    0     0    153      0 --:--:-- --:--:-- --:--:--   153
+{
+    "success": true,
+    "deck_id": "8x51cobw8p04",
+    "remaining": 52,
+    "shuffled": false
+}
+PYTHON TOOL IS LIKE PRETTY PRINT
+developer:src > curl  https://deckofcardsapi.com/api/deck/new/
+{"success": true, "deck_id": "7mr0ger2ae82", "remaining": 52, "shuffled": false}developer:src >
+ > curl https://deckofcardsapi.com/api/deck/new/ | python -m json.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    80  100    80    0     0    153      0 --:--:-- --:--:-- --:--:--   153
+{
+    "success": true,
+    "deck_id": "8x51cobw8p04",
+    "remaining": 52,
+    "shuffled": false
+} 

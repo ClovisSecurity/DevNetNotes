@@ -1,0 +1,50 @@
+COMMAND: Configure Loopback Interface on Router
+R1#conf t
+R1(config)#int gigabitEthernet 0/0
+R1(config-if)#ip add 172.16.1.1 255.255.255.252
+R1(config-if)#no shut
+R1(config-if)#int lo0
+R1(config-if)#ip address 1.1.1.1 255.255.255.255
+THEN CONFIGURE OSPF
+
+ENABLE INTERFACE AND ASSIGN IP ADDRESS
+-R1(config-if)#no shutdown
+Assign IP address
+-R1(config-if)#ip address 10.0.0.1 255.0.0.0
+-R1(config-if)#description P2P Core to Core Etherchannel
+Enable LLDP in the config mode:
+R1(config)#lldp run                                         # Enable LLDP(or CDP) in the config mode
+Command: Verify the speed and duplex settings
+SW1#show interface Fa0/1                            # Command: Verify the speed and duplex settings
+R1#show lldp neighbors [detail] .                   # Display information about LLDP(or CDP) neighbors 
+
+Display information about directly connected devices using CDP
+Floor1#show cdp neighbors [detail]
+
+
+CONFIGURE PASSWORD FOR CONSOLE ACCESS
+-HOSTNAME(config) line console 0
+-HOSTNAME(config-line) password PASSWORD 
+-HOSTNAME(config-line) login
+
+CONFIGURE A PASSWORD FOR THE PRIVILEGED EXEC MODE – FROM THE PRIVILEGED EXEC MODE, YOU CAN ENTER THE GLOBAL 
+CONFIGURATION MODE AND CHANGE THE CONFIGURATION OF A DEVICE.
+-HOSTNAME(config) enable secret PASSWORD
+
+
+
+
+
+Loopback
+Set IP for port
+
+
+
+NAT
+DHCP
+DNS
+Enable netconf
+Enable SNMP
+OSPF
+P2P
+Trunk

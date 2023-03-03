@@ -1,0 +1,15 @@
+{
+	"id": "f58d72ca-a396-4821-8d49-e166394c4404",
+	"values": [
+		{
+			"key": "deck_id",
+			"value": "ux991w6ia3ij",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-02-22T23:49:28.597Z",
+	"_postman_exported_using": "Postman/10.10.7"
+}

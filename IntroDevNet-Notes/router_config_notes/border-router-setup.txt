@@ -1,0 +1,132 @@
+BOILER PLATE CUT AND PASTE
+conf t 
+no ip domain-lookup
+vtp mode transparent
+vtp domain clovissecurity.it
+enable secret cisco
+spann mode rapid
+spann mode def
+ip routing
+ipv6 unicast routing
+no service time log
+no service time debug
+line con 0
+logging sync
+no exec-timeout 
+privi level 15
+exit
+line vty 0 15
+no login
+privi level 15
+host 
+
+R1 STEPS
+1. Paste boiler Plate code 
+2. Give internet-facing port an ip address
+3. Ping gateway from R1
+4. Set up default route to gateway
+5. Set up OSPF
+6. default-information originate always
+7. Set ip nat outside
+8. Set ip nat inside
+9. do show ip nat statistics
+10. Create standard ACL for NAT 
+
+
+
+COMMAND: Configure Loopback Interface on Router
+R1#conf t
+R1(config)#int gigabitEthernet 0/0
+R1(config-if)#ip add 172.16.1.1 255.255.255.252
+R1(config-if)#no shut
+R1(config-if)#int lo0
+R1(config-if)#ip address 1.1.1.1 255.255.255.255                               # THEN CONFIGURE OSPF
+
+CONFIGURE ACL
+R1(config)#ip access-list standard FOR-NAT
+R1(config-std-acl)#permit 10.0.0.0 0.0.0.255
+
+CONFIGURE NAT inside
+ip nat inside
+
+CONFIGURE NAT outside
+ip nat outside
+R1(config)#ip nat inside source list FOR-NAT interface gig 0/1 overload
+
+To configure PAT, the following commands are required:
+configure the router’s inside interface using the ip nat inside command.
+configure the router’s outside interface using the ip nat outside command.
+configure an access list that includes a list of the inside source addresses that should be translated.
+enable PAT with the ip nat inside source list ACL_NUMBER interface TYPE overload global configuration command.
+
+COMMAND: For PAT, enable NAT and refer to the ACL created in the previous step and to the interface whose IP address 
+will be used for translations:
+R1(config)#ip nat inside source list 1 interface Gi0/1 overload
+
+COMMAND: Setup EIGRP on a Router:
+R1(config)#router eigrp 1
+R1(config-router)#network 10.0.0.0
+R1(config-router)#redistribute connected
+
+COMMAND: Set type of connection for routing
+Router(config)#int gi0/0
+Router(config-if)#ip ospf network point-to-point
+
+COMMAND: The default route or the Gateway of Last Resort IP Addresses:
+‘default-information originate always’ command 
+
+COMMAND: Configure an ACL that will include a list of the inside source addresses that will be translated:
+R1(config)#access-list 1 permit 10.0.0.0 0.0.0.255
+
+(((END OF EXTRA NOTES)))
+
+DHCP Setup
+
+DNS SETUP 
+
+
+
+
+ACL
+
+COMMAND: Create named ACL
+(config) ip access-list STANDARD|EXTENDED NAME
+
+Place a deny statement on the 20th line of named ACL
+R1(config-ext-nacl)#20 deny ip 10.0.0.2 0.0.0.0 192.168.0.1 0.0.0.0
+
+COMMAND: Show named ACL configuration:
+R1#show ip access-lists 
+
+COMMAND: Permit the administrator’s workstation access to Server 192.168.0.1:
+R1(config)#access-list 100 permit ip 10.0.0.1 0.0.0.0 192.168.0.1 0.0.0.0
+R1(config)#int f0/0
+R1(config-if)#ip access-group 100 in
+
+ACL Deny Statements
+
+Unnecessary because there is an explicit deny at the end of each ACL.
+
+COMMAND: Allow user 10.0.0.2 to use port 80 on 192.168.0.1:
+R1(config)#access-list 100 permit tcp 10.0.0.2 0.0.0.0 192.168.0.1 0.0.0.0 eq 80
+
+(config) access list NUMBER permit|deny IP_PROTOCOL SOURCE_ADDRESS WILDCARD_MASK [PROTOCOL_INFORMATION] DESTINATION_ADDRESS WILDCARD_MASK PROTOCOL_INFORMATION
+(config) ip access-group ACL_NUMBER in | out
+
+Command permit subnet range on R1:
+R1(config)#access-list 1 permit 10.0.0.0 0.0.0.255
+
+COMMAND: Allow specific host through switch
+R1(config)#access-list 1 permit host 10.0.0.1
+
+COMMAND: Deny traffic from the Users LAN (11.0.0.0/24):
+R1(config)#access-list 1 deny 11.0.0.0 0.0.0.255
+
+COMMAND: Apply access list to interface and specify the outbound direction:
+R1(config-if)#ip access-group 1 out
+
+COMMAND: Create a standard access list on a Cisco route in global configuration mode:
+R1(config)# access-list ACL_NUMBER permit|deny IP_ADDRESS WILDCARD_MASK
+
+COMMAND: Use the host keyword to specify the host you want to permit or deny:
+R1(config)# access-list ACL_NUMBER permit|deny host IP_ADDRESS

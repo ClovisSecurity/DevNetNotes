@@ -1,0 +1,16 @@
+
+Display the hostname-to-address mappings, the show hosts command is used:
+Floor1#show hosts
+
+Ping the server using its hostname to verify that the hostnames are being resolved:
+Floor1#ping HQ_SERVER
+
+COMMAND: Display the VTP configuration information:
+Switch#show vtp status
+To configure static NAT, three steps are required:
+1. configure private/public IP address mapping by using the ip nat inside source static PRIVATE_IP PUBLIC_IP command
+2. configure the router’s inside interface using the ip nat inside command
+3. configure the router’s outside interface using the ip nat outside command
+
+COMMAND: Check NAT:
+R1#show ip nat translations

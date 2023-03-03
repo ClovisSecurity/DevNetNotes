@@ -1,0 +1,112 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2708
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red27\green31\blue34;\red244\green246\blue249;\red87\green96\blue106;
+\red245\green245\blue245;\red21\green23\blue26;}
+{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18039;\cssrgb\c96471\c97255\c98039;\cssrgb\c41569\c45098\c49020;
+\cssrgb\c96863\c96863\c96863;\cssrgb\c10588\c12157\c13725\c5098;}
+{\info
+{\author John Moorman}}\margl1440\margr1440\vieww28300\viewh17140\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 # print and separate each item by |\
+print("server", "device", "network", sep="|")\
+\
+prefix = 24\
+print("network mask prefix: ", prefix, sep="/")
+\fs32 \cf2 \expnd0\expndtw0\kerning0
+\
+\
+Output:\
+\pard\pardeftab720\sa640\partightenfactor0
+
+\f1\fs27\fsmilli13600 \cf2 \cb3 network mask prefix: /24\
+\pard\pardeftab720\partightenfactor0
+\cf2 url = "https://ios-xe-mgmt.cisco.com:9443/restconf/data/ietf-interfaces:interfaces"\
+headers = \{'Content-Type': 'application/yang-data+json',\
+           'Accept': 'application/yang-data+json'\}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0  
+\f1\fs27\fsmilli13600 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 response = requests.get(url, auth=(USER, PASS), headers=headers, verify=False)\
+\
+import json\
+with open('iosxe_data.json') as json_file:\
+    data = json.load(json_file)\
+    for interface in data['ietf-interfaces:interfaces']['interface']:\
+        print(interface)\
+\
+from time import sleep\
+while True:\
+    try:\
+        print("Polling.")\
+        # Poll some resource\
+        sleep(1)\
+    except KeyboardInterrupt:\
+        break\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs32 \cf4 \cb5 Note: You can use 'Ctrl-C' to break out of infinite loops or hung scripts.\
+\
+for switch in my_network:\
+    for interface in switch:\
+        if interface.is_down() and interface.last_change() > thirty_days:\
+            interface.shutdown()\
+            interface.set_description("Interface disabled per Policy")\
+\
+>> import requests\
+>>>\
+>>> HOST = 'ios-xe-mgmt.cisco.com'\
+>>> USER = 'developer'\
+>>> PASS = 'C1sco12345'\
+>>>\
+>>>\
+>>> url = "https://ios-xe-mgmt.cisco.com:9443/restconf/data/ietf-interfaces:interfaces"\
+>>> headers = \{'Content-Type': 'application/yang-data+json',\
+...               'Accept': 'application/yang-data+json'\}\
+>>>\
+>>> response = requests.get(url, auth=(USER, PASS), headers=headers, verify=False)\
+>>>\
+>>>\
+>>> interfaces = response.json()\
+>>> interfaces['ietf-interfaces:interfaces']['interface'][0]['name']\
+'GigabitEthernet1'\
+>>> interfaces['ietf-interfaces:interfaces']['interface'][0]['ietf-ip:ipv4']['address'][0]['ip']\
+'10.10.20.48'\
+>>>\
+\
+\pard\pardeftab720\sa640\partightenfactor0
+\cf2 \cb1 Protocol pro tip: When you want to see the protocol response headers using 
+\f1\fs27\fsmilli13600 \cb6 curl
+\f0\fs32 \cb1 , the 
+\f1\fs27\fsmilli13600 \cb6 --include
+\f0\fs32 \cb1  or 
+\f1\fs27\fsmilli13600 \cb6 -i
+\f0\fs32 \cb1  option provides that information.\
+curl https://deckofcardsapi.com/api/deck/new/ | python -m json.tool\
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\
+                                 Dload  Upload   Total   Spent    Left  Speed\
+100    80  100    80    0     0    153      0 --:--:-- --:--:-- --:--:--   153\
+\{\
+    "success": true,\
+    "deck_id": "8x51cobw8p04",\
+    "remaining": 52,\
+    "shuffled": false\
+\}\
+PYTHON TOOL IS LIKE PRETTY PRINT\
+developer:src > curl  https://deckofcardsapi.com/api/deck/new/\
+\{"success": true, "deck_id": "7mr0ger2ae82", "remaining": 52, "shuffled": false\}developer:src >\
+ > curl https://deckofcardsapi.com/api/deck/new/ | python -m json.tool\
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\
+                                 Dload  Upload   Total   Spent    Left  Speed\
+100    80  100    80    0     0    153      0 --:--:-- --:--:-- --:--:--   153\
+\{\
+    "success": true,\
+    "deck_id": "8x51cobw8p04",\
+    "remaining": 52,\
+    "shuffled": false\
+\} \
+}

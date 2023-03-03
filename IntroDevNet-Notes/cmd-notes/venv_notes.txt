@@ -1,0 +1,15 @@
+Setting up Virtual Environments
+
+pip freeze
+python -m venv ciscolive
+source ciscolive/bin/activate
+pip freeze
+pip install requests
+pip list
+
+# Deactivate venv
+deactivate 
+
+Now packages can be installed locally instead of globally. 
+This keeps packages from getting out of control
+Packages are installed to /lib directory

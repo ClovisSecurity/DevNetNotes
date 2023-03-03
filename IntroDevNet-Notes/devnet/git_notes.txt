@@ -1,0 +1,23 @@
+Steps:
+	1. Go to directory that you want to track
+	2. Initialize
+	
+git init
+
+	3. Add a commit
+
+git add *
+git commit -m "This is the beginning of improtant code"
+git status
+
+git clone [URLfromGithub] 
+
+Push and Pull Commands
+Used to Push or pull commits from one repository or another.
+
+git push
+git pull
+
+git branch SecurityBranch
+
+git checkout master

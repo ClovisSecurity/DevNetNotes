@@ -1,0 +1,11 @@
+Install
+
+Powershell Core 7
+vscode
+postman
+Cisco Anyconnect
+Microsoft Office
+python
+sleuthkit
+vmware workstation
+anaconda

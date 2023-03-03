@@ -1,0 +1,16 @@
+
+SET UP HSRP 
+R1(config)#interface GigabitEthernet 0/0/0
+R1(config-if)#ip address 192.168.1.2 255.255.255.0
+R1(config-if)#no shutdown
+R1(config-if)#standby 1 ip 192.168.1.1                        #! SAME config should be set up on other router
+R2#show standby                                               # Verify status
+
+COMMAND: To put R1 in preempt mode:
+R1#conf t
+R2(config)#interface FastEthernet0/1
+R1(config-if)#ip address 172.16.1.3 255.255.255.0
+R1(config-if)#standby 10 preempt
+R1(config-if)#standby 10 ip 172.16.1.1
+R1(config-if)#no shutdown
+R1(config-if)#end

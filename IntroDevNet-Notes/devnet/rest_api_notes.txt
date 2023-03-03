@@ -1,0 +1,9 @@
+
+# Use Command+Option+R to view the JSON Obj and HTTP Header
+https://swapi.dev/api/people/2/
+
+https://api.discogs.com/releases/24904
+
+API Authentication
+
+Token Based authentication is the most popular form on the web.

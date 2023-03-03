@@ -1,0 +1,35 @@
+
+
+
+
+COMMAND: Enable routing capability on the switch.
+Switch(config)#ip routing
+
+COMMAND: Configure the IP address on the VLAN interfaces based on the network diagram above.
+Switch#configure terminal
+Switch(config)#interface Vlan10
+%LINK-5-CHANGED: Interface Vlan10, changed state to up
+Switch(config-if)#ip address 192.168.10.1 255.255.255.0
+Switch(config-if)#no shutdown
+
+COMMAND: Assign the VLAN 2 to interface:
+Switch(config)#vlan 2
+Switch(config-vlan)#exit
+Switch(config)#interface fastEthernet0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#
+
+COMMAND: Configure switch to carry both data and voice traffic:
+SW1(config)#vlan 5
+SW1(config)#vlan 20
+SW1(config)#int fa0/1
+SW1(config-if)#switchport mode access
+SW1(config-if)#switchport access vlan 5
+SW1(config-if)#switchport voice vlan 20
+
+(config-if)#switchport trunk allowed vlan {add | all | except | remove} vlan-list
+
+COMMAND: Reset switch point to default setting (permitting all VLANs on trunk:
+switchport trunk allowed vlan all 
+
