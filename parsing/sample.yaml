@@ -1,0 +1,14 @@
+---
+people:
+- Id: 1
+  FirstName: Ben
+  LastName: Finkel
+  Email: xanmo@gmail.com
+- Id: 2
+  FirstName: Bob
+  LastName: Moore
+  Email: Bobby@gmail.com
+- Id: 3
+  FirstName: Marge
+  LastName: Moorman
+  Email: MargeMarge@gmail.com
