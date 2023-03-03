@@ -1,0 +1,30 @@
+---
+- name: Create loopback payload from template
+  hosts: sandbox     # This was an ip address previously. 
+  connection: local
+
+  tasks:
+    - name: Create template
+      with_items: "{{local_loopback}}"
+      template: src="files/ietf_inteface.j2" dest="./output.json"
+
+    - name: Create loopbacks with RESTCONF
+      with_items: "{{local_loopback}}"
+      restconf_config:
+        method: post
+        format: json
+        path: /data/ietf-interfaces:interfaces
+        #content: "{{ new_loop | to_json }}"                      # Does the exact same thing the line below, but uses host_vars
+        content: "{{ lookup('file','./output.json') | string }}"  # look up output.json file and convert to string.
+      register: results                                           # register results of output.json to variable called results
+      ignore_errors: true
+
+    - name: print output
+      debug: msg="{{results}}"
+
+    # - name: Delete interface
+    #   with_items: "{{local_loopback}}"
+    #   restconf_config:
+    #     method: delete
+    #     format: json
+    #     path: "/data/ietf-interfaces:interfaces/interface={{item.name}}"

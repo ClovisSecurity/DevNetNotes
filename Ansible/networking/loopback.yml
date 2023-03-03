@@ -1,0 +1,23 @@
+---
+- name: Create Loopbacks on device
+  hosts: switches                      # Running against both nexus 9k and 3k 
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Create loopback shell         # This just creates the loopback shell.
+      with_items: "{{local_loopback}}"    # imported from host_vars directory 
+      nxos_interface:                     # all this does is create the interface.
+        interface: "{{item.name}}"        # it will iterate over each of the loopback items. There are 3 for each.
+        mode: layer3
+        description: "{{item.desc}}"
+        admin_state: up
+      # Configure the loopback with ip address information
+    - name: Set new loopback configs
+      with_items: "{{local_loopback}}"     
+      nxos_l3_interfaces:
+        config:
+          - name: "{{item.name}}"
+            ipv4: 
+            - address: "{{item.ip_address}}"
+        state: merged                     # The teacher thought it was important to use "present" not "merged"
+                                          # Using the "absent" command makes sure the loopback is not on the router.
